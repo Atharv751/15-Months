@@ -1,0 +1,186 @@
+.hud-btn.sound-on{ background:linear-gradient(45deg, var(--pink-400), var(--pink-500)); color:var(--white) }
+
+#confetti{ position:fixed; inset:0; z-index:2; pointer-events:none }
+
+:root{
+	--pink-100:#fff0f6;
+	--pink-200:#ffe1ef;
+	--pink-300:#ffcae1;
+	--pink-400:#ff9fc7;
+	--pink-500:#ff6fae;
+	--pink-600:#ff4f9c;
+	--rose-700:#e03a8a;
+	--bg:#fff7fb;
+	--ink:#52263a;
+	--white:#ffffff;
+	--shadow:0 10px 30px rgba(255,111,174,.25);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0;
+	font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+	color:var(--ink);
+	background: radial-gradient(1200px 600px at 20% 0%, var(--pink-100), transparent),
+		radial-gradient(1200px 600px at 80% 10%, var(--pink-200), transparent),
+		linear-gradient(180deg, var(--bg), var(--pink-100));
+	background-attachment: fixed;
+	overflow-x:hidden;
+}
+
+/* Heart rain container */
+#heart-rain{
+	position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:2;
+}
+.heart{
+	position:absolute; top:-40px; font-size:clamp(16px,2.5vw,28px); filter:drop-shadow(0 4px 6px rgba(0,0,0,.15));
+	animation: fall linear forwards;
+}
+@keyframes fall{
+	to{ transform:translateY(120vh) rotate(20deg); opacity:.9 }
+}
+
+/* HUD */
+.hud{
+	position:fixed; top:10px; left:50%; transform:translateX(-50%);
+	display:flex; align-items:center; gap:12px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.7); backdrop-filter:blur(8px); box-shadow:var(--shadow); z-index:3;
+}
+.hud-btn{ background:var(--white); border:1px solid var(--pink-300); border-radius:999px; padding:8px 12px; cursor:pointer; box-shadow:var(--shadow) }
+.hud-btn[disabled]{ opacity:.5; cursor:not-allowed }
+.hud-progress{ display:flex; align-items:center; gap:10px; font-weight:700; color:var(--rose-700) }
+.hud .bar{ width:36vw; max-width:360px; height:8px; background:var(--pink-200); border-radius:999px; overflow:hidden }
+.hud .bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--pink-500), var(--pink-600)) }
+
+/* Hero */
+.hero{ min-height:100vh; display:grid; place-items:center; text-align:center; position:relative; z-index:1 }
+.hero-content{ padding:56px 20px }
+.hero h1{ font-size:clamp(28px,5vw,56px); margin:16px 0 8px; color:var(--rose-700) }
+.hero p{ margin:0 0 24px; opacity:.9 }
+.hero-photo{ width:min(320px,70vw); aspect-ratio:1/1; margin:0 auto; border-radius:28px; overflow:hidden; box-shadow:var(--shadow); transform:rotate(-2deg) }
+.hero-photo img{ width:100%; height:100%; object-fit:cover }
+.cta{
+	background:linear-gradient(45deg, var(--pink-500), var(--pink-600)); color:var(--white); border:none; padding:14px 22px; border-radius:999px; cursor:pointer; box-shadow:var(--shadow); font-weight:700;
+	transition: transform .12s ease, filter .15s ease;
+}
+.cta:hover{ transform:translateY(-2px); filter:saturate(1.1) }
+
+/* Timeline with scroll snap */
+.timeline{
+	scroll-snap-type:y mandatory; height:auto;
+}
+.placard{
+	min-height:100vh; display:grid; place-items:center; padding:40px 16px; scroll-snap-align:start; position:relative;
+}
+.placard h2{ margin-bottom:12px; color:var(--pink-600) }
+.card{
+	width:min(900px,92vw); background:rgba(255,255,255,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+	border:1px solid var(--pink-300); border-radius:28px; padding:24px; box-shadow:var(--shadow);
+	transform: translateY(8px) scale(.985); opacity:0; transition: all .35s cubic-bezier(.2,.8,.2,1);
+}
+.placard.is-visible .card{ transform:none; opacity:1 }
+.media-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-top:12px }
+.media-grid img{ width:100%; border-radius:16px; box-shadow:var(--shadow); object-fit:cover }
+
+/* Unlock heart game button */
+.unlock-heart{ position:absolute; top:12%; left:12%; transform:translate(-50%,-50%); border:none; background:transparent; font-size:28px; filter:drop-shadow(0 2px 4px rgba(0,0,0,.2)); cursor:pointer; transition: transform .12s ease; }
+.unlock-heart:hover{ transform:translate(-50%,-50%) scale(1.1) }
+.unlock-heart.found{ animation:pop .4s ease; pointer-events:none; opacity:.4 }
+.unlock-heart.hint{ text-shadow:0 0 12px rgba(255,111,174,.9) }
+@keyframes pop{ 0%{ transform:translate(-50%,-50%) scale(.7) } 70%{ transform:translate(-50%,-50%) scale(1.25) } 100%{ transform:translate(-50%,-50%) scale(1) } }
+
+/* Shake effect for card when hinting */
+.card.shake{ animation:shake .4s ease }
+@keyframes shake{ 0%,100%{ transform:translateX(0) } 25%{ transform:translateX(-6px) } 50%{ transform:translateX(6px) } 75%{ transform:translateX(-3px) } }
+
+/* Gallery strip */
+.gallery{ padding:32px 0 72px }
+.gallery h2{ text-align:center; color:var(--pink-600) }
+.gallery-strip{ display:flex; gap:12px; overflow-x:auto; padding:12px; scroll-snap-type:x mandatory }
+.gallery-strip > *{ height:160px; width:auto; border-radius:16px; scroll-snap-align:center; box-shadow:var(--shadow) }
+
+/* Floating teddy stickers (emoji) */
+.sticker{ position:fixed; z-index:1; pointer-events:none; filter:drop-shadow(0 4px 8px rgba(0,0,0,.2)); opacity:.22; animation: drift linear infinite, bob ease-in-out infinite }
+@keyframes drift{ to{ transform: translateX(20vw) translateY(-10vh) rotate(12deg) } }
+@keyframes bob{ 0%,100%{ margin-top:0 } 50%{ margin-top:-8px } }
+
+/* Final overlay */
+.overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(255,240,246,.85); backdrop-filter:blur(8px); z-index:4; padding:24px }
+.overlay[aria-hidden="false"]{ display:flex }
+.overlay-content{ max-width:640px; background:var(--white); border:1px solid var(--pink-300); border-radius:28px; box-shadow:var(--shadow); padding:24px; text-align:center }
+.overlay h2{ color:var(--rose-700); margin:0 0 8px }
+.overlay p{ margin:0 0 16px }
+
+/* Utilities */
+.footer{ text-align:center; padding:32px 12px; color:#8a4b65 }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+	.heart{ animation-duration: 0.01ms; animation-iteration-count:1 }
+	.card{ transition:none }
+	.sticker{ animation:none }
+}
+
+/* Placard fronts */
+.placard{ min-height:100vh; display:grid; place-items:center; padding:40px 16px; scroll-snap-align:start; position:relative }
+.placard-front{ appearance:none; border:none; background:rgba(255,255,255,.8); border:1px solid var(--pink-300); box-shadow:var(--shadow); color:var(--rose-700); font-weight:800; letter-spacing:.3px; padding:18px 26px; border-radius:24px; cursor:pointer; font-size:clamp(18px,4vw,28px); transform:scale(1) rotate(-1.5deg); transition: transform .2s ease, background .2s ease }
+.placard-front:hover{ transform:scale(1.04) rotate(-1deg); background:rgba(255,255,255,.92) }
+
+/* Month overlay */
+.overlay-month{ position:relative; overflow:hidden }
+.overlay-month-bg{ position:absolute; inset:0; background-size:cover; background-position:center; opacity:.25; filter:blur(2px) saturate(1.1) }
+.overlay-month-body{ position:relative; z-index:1; padding:24px }
+.overlay-month-body h2{ color:var(--rose-700); margin:0 0 12px }
+.overlay-month-body p{ margin:0 }
+
+/* Open animation */
+.overlay[aria-hidden="false"] .overlay-content{ animation: zoomIn .3s ease }
+@keyframes zoomIn{ from{ transform:scale(.96); opacity:0 } to{ transform:scale(1); opacity:1 } }
+
+/* Collage grid (cute masonry) - full width and taller tiles */
+.collage-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; padding:16px; min-height:80vh }
+.collage-grid .tile{ position:relative; background:var(--white); border:2px solid var(--pink-300); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; transition: transform .18s ease, box-shadow .18s ease }
+.collage-grid .tile img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.06) contrast(1.02) }
+.collage-grid .tile:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 16px 36px rgba(255,111,174,.35) }
+.collage-grid .tile-badge{ position:absolute; right:8px; top:8px; font-size:14px; background:rgba(255,255,255,.85); border:1px solid var(--pink-300); border-radius:999px; padding:2px 8px; box-shadow:var(--shadow) }
+
+/* Size variants (denser, taller) */
+.collage-grid .tile.size-s{ grid-row: span 1; height:160px }
+.collage-grid .tile.size-m{ grid-row: span 1; height:220px }
+.collage-grid .tile.size-l{ grid-row: span 2; height:320px }
+
+@media (min-width: 860px){
+	.collage-grid{ grid-template-columns:repeat(auto-fill,minmax(200px,1fr)) }
+	.collage-grid .tile.size-s{ height:200px }
+	.collage-grid .tile.size-m{ height:260px }
+	.collage-grid .tile.size-l{ height:360px }
+}
+
+/* Cute placard decorations */
+.placard{ position:relative }
+.placard-decor{ position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.65; transition: opacity .25s ease, transform .2s ease }
+.placard.is-visible .placard-decor{ opacity:.9 }
+.decor-emoji{ position:absolute; filter:drop-shadow(0 2px 4px rgba(0,0,0,.2)); animation: floatUp linear infinite, sway ease-in-out infinite; will-change: transform }
+@keyframes floatUp{ from{ transform:translateY(6px) } to{ transform:translateY(-6px) } }
+@keyframes sway{ 0%,100%{ margin-left:0 } 50%{ margin-left:6px } }
+
+/* Placard front hover glow enhancement */
+.placard-front{ box-shadow: var(--shadow); }
+.placard-front:hover{ box-shadow: 0 12px 30px rgba(255,111,174,.35), 0 0 0 6px rgba(255,159,199,.2) }
+
+/* Sparkles (optional small twinkles) */
+.sparkle{ position:absolute; width:6px; height:6px; border-radius:50%; background: radial-gradient(circle, #fff 0%, #ffd1e8 60%, rgba(255,255,255,0) 70%); opacity:.8; animation: twinkle 1.8s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(255,255,255,.6)) }
+@keyframes twinkle{ 0%,100%{ transform:scale(.6); opacity:.4 } 50%{ transform:scale(1.1); opacity:1 } }
+
+/* Love note section */
+.love-note{ padding:28px 12px 48px; text-align:center }
+.love-note h2{ margin:0 0 6px; color:var(--rose-700); font-size:clamp(22px,4.5vw,34px) }
+.love-note p{ margin:0; color:#7a3c56; font-weight:600 }
+
+/* Lightbox */
+.lightbox{ position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:5; padding:16px }
+.lightbox[aria-hidden="false"]{ display:flex }
+.lightbox img{ max-width:92vw; max-height:86vh; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,.45); background:#fff }
+.lightbox-btn{ position:absolute; top:14px; background:rgba(255,255,255,.9); border:1px solid var(--pink-300); border-radius:999px; padding:8px 12px; box-shadow:var(--shadow); cursor:pointer }
+#lightboxClose{ right:14px }
+#lightboxPrev{ left:16px; top:50%; transform:translateY(-50%) }
+#lightboxNext{ right:16px; top:50%; transform:translateY(-50%) }

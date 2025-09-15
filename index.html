@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>15 Months With You</title>
+<link rel="preload" href="public/dana choga.jpg" as="image" />
+<link rel="preload" href="public/ice.jpg" as="image" />
+<link rel="preload" href="public/ramen.jpg" as="image" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<audio id="bgm" preload="auto" loop>
+	<source src="public/yellow.mp3" type="audio/mpeg" />
+</audio>
+<div id="heart-rain"></div>
+<canvas id="confetti"></canvas>
+<div id="gameHud" class="hud">
+	<button id="prevBtn" class="hud-btn" aria-label="Previous month">⟵</button>
+	<div class="hud-progress">
+		<span id="progressText">Month 1 / 15</span>
+		<div class="bar"><div class="bar-fill" id="progressBar"></div></div>
+	</div>
+	<button id="musicBtn" class="hud-btn" aria-label="Toggle music">🔈</button>
+	<button id="nextBtn" class="hud-btn" aria-label="Next month" disabled>⟶</button>
+</div>
+<header class="hero">
+	<div class="hero-content">
+		<div class="hero-photo">
+			<img src="public/rug_res.jpg" alt="Us together" />
+		</div>
+		<h1>Happy 15 Monthiversary, My Love ❤️</h1>
+		<p>Scroll down to open each month. I love you more every day.</p>
+		<button id="enterBtn" class="cta">Start the journey</button>
+	</div>
+</header>
+
+<main id="timeline" class="timeline">
+	<!-- 15 placards -> fronts only; open overlay on click -->
+	<section class="placard" data-month="1"><button class="placard-front" type="button">1st Month — June '24</button></section>
+	<section class="placard" data-month="2"><button class="placard-front" type="button">2nd Month — July '24</button></section>
+	<section class="placard" data-month="3"><button class="placard-front" type="button">3rd Month — August '24</button></section>
+	<section class="placard" data-month="4"><button class="placard-front" type="button">4th Month — September '24</button></section>
+	<section class="placard" data-month="5"><button class="placard-front" type="button">5th Month — October '24</button></section>
+	<section class="placard" data-month="6"><button class="placard-front" type="button">6th Month — November '24</button></section>
+	<section class="placard" data-month="7"><button class="placard-front" type="button">7th Month — December '24</button></section>
+	<section class="placard" data-month="8"><button class="placard-front" type="button">8th Month — January '25</button></section>
+	<section class="placard" data-month="9"><button class="placard-front" type="button">9th Month — February '25</button></section>
+	<section class="placard" data-month="10"><button class="placard-front" type="button">10th Month — March '25</button></section>
+	<section class="placard" data-month="11"><button class="placard-front" type="button">11th Month — April '25</button></section>
+	<section class="placard" data-month="12"><button class="placard-front" type="button">12th Month — May '25</button></section>
+	<section class="placard" data-month="13"><button class="placard-front" type="button">13th Month — June '25</button></section>
+	<section class="placard" data-month="14"><button class="placard-front" type="button">14th Month — July '25</button></section>
+	<section class="placard" data-month="15"><button class="placard-front" type="button">15th Month — August '25</button></section>
+</main>
+
+<section class="gallery">
+	<h2>Little Memories</h2>
+	<div id="collageGrid" class="collage-grid"></div>
+</section>
+
+<section class="love-note" aria-label="Love note">
+	<h2>You are my everything</h2>
+	<p>Thank you for 15 beautiful months and for forever to come.</p>
+</section>
+
+<div id="monthOverlay" class="overlay" aria-hidden="true">
+	<div class="overlay-content overlay-month">
+		<button id="closeMonth" class="hud-btn" aria-label="Close">✕</button>
+		<div class="overlay-month-bg" id="monthBg"></div>
+		<div class="overlay-month-body">
+			<h2 id="monthTitle"></h2>
+			<p id="monthMessage"></p>
+		</div>
+	</div>
+</div>
+
+<div id="finalOverlay" class="overlay" aria-hidden="true">
+	<div class="overlay-content">
+		<h2>You are my everything 💞</h2>
+		<p>Thank you for 15 beautiful months — and for forever to come.</p>
+		<button id="closeOverlay" class="cta">Close</button>
+	</div>
+</div>
+
+<!-- Collage lightbox overlay -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+	<button id="lightboxClose" class="lightbox-btn" aria-label="Close">✕</button>
+	<button id="lightboxPrev" class="lightbox-btn" aria-label="Previous">⟵</button>
+	<img id="lightboxImg" alt="Memory" />
+	<button id="lightboxNext" class="lightbox-btn" aria-label="Next">⟶</button>
+</div>
+
+<footer class="footer">
+	<p>Made with all my love for you 💘</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
